@@ -16,7 +16,7 @@ const Home = () => {
   </li>
 	);*/
 
-	const DeleteItems = (indexItem) => {
+	const deleteItems = (indexItem) => {
 		setList((prevState) =>
 		  prevState.filter((listItems, index) => index !== indexItem)
 		);
@@ -30,16 +30,20 @@ const Home = () => {
 	console.log(list);
 
 	function crearUsuario(){
-		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,{method: 'POST', headers: {
+		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,
+		{method: 'POST', 
+		headers: {
 			'Content-Type': 'application/json'},
-			body: JSON.stringify([])
+		body: JSON.stringify([])
 	  })
 		.then((response)=>response.json())
 		.then((data)=>console.log(data))
 	}
 
 	function obtenerLista(){
-		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,{method: 'GET', headers: {
+		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,
+		{method: 'GET', 
+		headers: {
 			'Content-Type': 'application/json'}
 	  })
 		.then((response)=>response.json())
@@ -47,16 +51,20 @@ const Home = () => {
 	}
 
 	function actualizar(){
-		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,{method: 'PUT', headers: {
+		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,
+		{method: 'PUT', 
+		headers: {
 			'Content-Type': 'application/json'},
-			body: JSON.stringify([list])
+		body: JSON.stringify([list])
 	  })
 		.then((response)=>response.json())
-		.then((data)=>console.log(data))
+		.then((data)=>console.log(list))
 	}
 
-	function borrarLista(){
-		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,{method: 'DELETE', headers: {
+	function deleteList(){
+		fetch(`https://assets.breatheco.de/apis/fake/todos/user/svuf`,
+		{method: 'DELETE', 
+		headers: {
 			'Content-Type': 'application/json'}
 	  })
 		.then((response)=>response.json())
@@ -83,13 +91,13 @@ const Home = () => {
 			  <ul>{list.map((item, index) => (
         <li key={index}>
           {item}
-          <button className="btn" onClick={() => DeleteItems(index)}>
+          <button className="btn" onClick={() => deleteItems(index)}>
             <i className="fas fa-trash-alt" />
           </button>
         </li>
       ))}</ul>
 			</div>
-			<button type="submit" className="btn btn-danger btn-sm" onClick={borrarLista}>Delete list</button>
+			<button type="submit" className="btn btn-danger btn-sm" onClick={deleteList} {...() => deleteItems(index)}>Delete list</button>
 		</div>
 		
 		</>
