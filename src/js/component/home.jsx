@@ -16,11 +16,12 @@ const Home = () => {
   </li>
 	);*/
 
-	const deleteItems = (indexItem) => {
+	const deleteTarea = (indexItem) => {
 		setList((prevState) =>
 		  prevState.filter((listItems, index) => index !== indexItem)
 		);
 	  };
+	  
 
 	function enviarDatos(e) {
 		e.preventDefault()
@@ -55,7 +56,7 @@ const Home = () => {
 		{method: 'PUT', 
 		headers: {
 			'Content-Type': 'application/json'},
-		body: JSON.stringify([list])
+		body: JSON.stringify(list)
 	  })
 		.then((response)=>response.json())
 		.then((data)=>console.log(list))
@@ -78,26 +79,29 @@ const Home = () => {
 
 	useEffect (()=>{
 		actualizar()
-	},[list.length])
+	},[list])
 
 	return (
 		<>
-		<div className="card container d-flex mt-3">
+		<div className="card container d-flex bg-info mt-3 md-w50">
+		<h2 className="titulo m-auto p-2">Lista de tareas.</h2>
   			<div className="card-body">
-  				<input type="text" className="input m-1 w-75" value={tarea} id="exampleInput" aria-describedby="inputHelp" onChange={(e)=>{setTarea(e.target.value)}} placeholder="No hay tareas, añadir tareas"/>
+  				<input type="text" className="input m-1 w-75" value={tarea} id="exampleInput" aria-describedby="inputHelp" onChange={(e)=>{setTarea(e.target.value)}} placeholder="Añadir una tarea."/>
 				<button type="submit" className="btn btn-primary btn-sm" onChange={(e)=>{setList(e.target.value)}} onClick={enviarDatos}>Agregar</button>
   			</div>
 			<div className="to-do-list d-flex">
 			  <ul>{list.map((item, index) => (
         <li key={index}>
           {item}
-          <button className="btn" onClick={() => deleteItems(index)}>
+          <button className="btn" onClick={() => deleteTarea(index)}>
             <i className="fas fa-trash-alt" />
           </button>
         </li>
       ))}</ul>
 			</div>
-			<button type="submit" className="btn btn-danger btn-sm" onClick={deleteList} {...() => deleteItems(index)}>Delete list</button>
+			<div className="delete-list d-flex justify-content-center mt-3 md-w50 mb-2">
+			<button type="submit" className="btn btn-danger btn-sm" onClick={deleteList}>Delete list</button>
+			</div>
 		</div>
 		
 		</>
