@@ -69,7 +69,13 @@ const Home = () => {
 			'Content-Type': 'application/json'}
 	  })
 		.then((response)=>response.json())
-		.then((data)=>console.log(data))
+		.then((data)=>{
+			console.log(data.result)
+			if (data.result === "ok"){
+				setList([])
+			}
+		})
+		
 	}
 
 	useEffect (()=>{
